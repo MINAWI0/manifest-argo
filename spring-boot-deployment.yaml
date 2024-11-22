@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-deployment
+  namespace: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-boot
+  template:
+    metadata:
+      labels:
+        app: spring-boot
+    spec:
+      containers:
+        - name: spring-boot-container
+          image: minaouimh/ai:Product-Service-27
+          env:
+            - name: MYSQL_HOST
+              value: "mysql-service"
+            - name: DB_USERNAME
+              value: "root"  # User
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
+          ports:
+            - containerPort: 8081
+      imagePullSecrets:
+        - name: docker-registry-secret

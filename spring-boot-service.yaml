@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-boot-service
+  namespace: web
+spec:
+  selector:
+    app: spring-boot
+  ports:
+    - port: 8081       # The port on the Service
+      targetPort: 8081 # The port on the container
+      nodePort: 30038  # The NodePort that will expose the service externally
+  type: NodePort        # Expose via NodePort

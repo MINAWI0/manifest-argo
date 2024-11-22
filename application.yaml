@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ai-project
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/MINAWI0/manifest-argo.git
+    targetRevision: HEAD
+    path: .  # Path to your Spring and MySQL manifests
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: web # The namespace where the resources are deployed
+  syncPolicy:
+    automated:
+      prune: true   # Automatically prune (delete) resources that are no longer defined in the Git repo
+      selfHeal: true # Automatically fix discrepancies between Git and the cluster
+    syncOptions:
+      - CreateNamespace=true
