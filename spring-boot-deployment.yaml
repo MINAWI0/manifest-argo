@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: spring-boot-container
-          image: minaouimh/ai:Product-Service-27
+          image: minaouimh/ai:Product-Service-40
           env:
             - name: MYSQL_HOST
               value: "mysql-service"
